@@ -40,8 +40,16 @@ function update_new_info {
   # episode_no=`echo $info | sed 's/.*:\(.*\)/\1/'`
 
   #updating new info in old_info.txt
-  sed -i "s/$episode_name.*/$info/" old_info.txt
-
+  grep $episode_name old_info.txt 1> /dev/null 2> /dev/null
+  if [ $? -eq 0 ]
+  then
+    #Old data exists!
+    sed -i "s/$episode_name.*/$info/" old_info.txt
+  else
+    #Old data does not exist!
+    echo "$info" >> old_info.txt
+  fi
+  
   #removing redundant info from new_info.txt
   sed -i "/$episode_name.*/d" new_info.txt
 }
