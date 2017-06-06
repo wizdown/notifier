@@ -23,6 +23,35 @@ function check_connection {
   # fi
 }
 
+function match {
+  key=$1
+  grep $key old_info.txt 1> /dev/null 2> /dev/null
+  if [ $? -eq 0 ]
+  then
+    echo "0" # found
+  else
+    echo "1" # not found
+  fi
+}
+
+function update_new_info {
+  info=$1
+  episode_name=`echo $info | sed 's/\(.*\):.*/\1/'`
+  # episode_no=`echo $info | sed 's/.*:\(.*\)/\1/'`
+
+  #updating new info in old_info.txt
+  sed -i "s/$episode_name.*/$info/" old_info.txt
+
+  #removing redundant info from new_info.txt
+  sed -i "/$episode_name.*/d" new_info.txt
+}
+
+function delete_redundant_info {
+  info=$1
+  sed -i "/$info/d" new_info.txt
+}
+
+
 if [ -f logs.txt ]
 then
   rm logs.txt
@@ -33,15 +62,23 @@ then
   rm new_info.txt
 fi
 
+if [ ! -f old_info.txt ]
+then
+  touch old_info.txt
+fi
+
 echo `date` >> logs.txt
 echo "Checking internet connection!" >> logs.txt
+
 # check_connection
 internet_status=`check_connection` >> logs.txt
 
 if [ $internet_status -eq 0 ]
 then
   echo "Internet connection found!" >> logs.txt
+
   FILES=`ls spiders`
+
   cd spiders
   for spider_name in $FILES
   do
@@ -50,10 +87,39 @@ then
   done
   cd ..
 
+  echo "Now parsing new info!" >> logs.txt
 
+  while read line
+  do
+    result=`match $line`
+    if [ $result -eq 0 ]
+    then
 
-  echo "New information retrieved successfully!"
+      echo "Deleting redundant info(shown in next line)!" >> logs.txt
+      echo "$line" >> logs.txt
+
+      delete_redundant_info $line
+
+    else
+
+      echo "Updating new info(shown in next line)!" >> logs.txt
+      echo "$line" >> logs.txt
+
+      update_new_info $line
+
+      notify_user.sh $line
+
+    fi
+
+  done < new_info.txt
+
+  echo "New information retrieved successfully!" >> logs.txt
 
 else
   echo "Internet connection not found!" >> logs.txt
+fi
+
+if [ -f new_info.txt ]
+then
+  rm new_info.txt
 fi
