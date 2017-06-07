@@ -1,3 +1,4 @@
+#!/bin/bash
 info=$1
 episode_name=`echo $info | sed 's/\(.*\):.*/\1/'`
 episode_no=`echo $info | sed 's/.*:\(.*\)/\1/'`

@@ -9,9 +9,9 @@ def extract_data(url):
     return list
 
 # Extracting one piece data
-def extract_one_piece_data():
-    one_piece_data = extract_data('https://9anime.to/search?keyword=one+piece')
-    for data in one_piece_data:
+def extract_one_piece_anime_data():
+    one_piece_anime_data = extract_data('https://9anime.to/search?keyword=one+piece')
+    for data in one_piece_anime_data:
         data = data.text[4:]
         if 'ONE PIECE' in data:
                 break
@@ -20,7 +20,7 @@ def extract_one_piece_data():
     episode_no = episode_no.split('/')[0]
     return episode_no
 
-new_episode_no = extract_one_piece_data()
+new_episode_no = extract_one_piece_anime_data()
 file = open('../new_info.txt','a')
-line='one_piece:' + str(new_episode_no) + '\n'
+line='one_piece_anime:' + str(new_episode_no) + '\n'
 file.write(line)
