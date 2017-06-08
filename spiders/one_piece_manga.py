@@ -21,5 +21,5 @@ def extract_one_piece_manga_data():
 
 new_episode_no = extract_one_piece_manga_data()
 file = open('../new_info.txt','a')
-line='one_piece:' + str(new_episode_no) + '\n'
+line='one_piece_manga:' + str(new_episode_no) + '\n'
 file.write(line)
