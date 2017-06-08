@@ -9,4 +9,7 @@
 3) notify_user.sh would require changes depending on how the user
    wants to notify himself/herself.
 
-4) main.sh should not be editted by user.(except for its permissions)
+4) A small change is required in main.sh (apart from changing its permissions)
+   Modify the starting line of code to change your current directory to
+   the one where it resides. This is done only for the ease of adding main.sh
+   to crontab.
