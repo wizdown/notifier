@@ -3,6 +3,21 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/us
 SHELL=/bin/bash
 #This file's permission has been changed to make it executable
 
+################################################################################
+# This part needs to be changed accordingly to execute it
+cd /home/abhishek/Desktop/noti
+
+################################################################################
+
+function notify_user {
+  info=$1
+  episode_name=`echo $info | sed 's/\(.*\):.*/\1/'`
+  episode_no=`echo $info | sed 's/.*:\(.*\)/\1/'`
+
+  message="${episode_no} : ${episode_name} is now available online!"
+  notify-send Notifier-Alert "$message"
+}
+
 function check_connection {
   echo -e "GET http://google.com HTTP/1.0\n\n" | nc google.com 80 > /dev/null 2>&1
 
@@ -60,11 +75,7 @@ function delete_redundant_info {
   sed -i "/$info/d" new_info.txt
 }
 
-################################################################################
-# This part needs to be changed accordingly to execute it
-cd /home/abhishek/Desktop/noti
 
-################################################################################
 
 if [ -f logs.txt ]
 then
@@ -131,7 +142,7 @@ then
 
       update_new_info $line
 
-      notify_user.sh $line
+      notify_user $line
 
     fi
 
