@@ -1,5 +1,6 @@
 #!/bin/bash
-
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:home/abhishek/android-studio/bin:/snap/bin:/home/abhishek/android-studio/bin:/opt/idea-IC-163.12024.16/bin::/home/abhishek/android-studio/bin:/opt/idea-IC-163.12024.16/bin:/home/abhishek/Desktop/noti/main.sh
+SHELL=/bin/bash
 #This file's permission has been changed to make it executable
 
 function check_connection {
@@ -59,6 +60,11 @@ function delete_redundant_info {
   sed -i "/$info/d" new_info.txt
 }
 
+################################################################################
+# This part needs to be changed accordingly to execute it
+cd /home/abhishek/Desktop/noti
+
+################################################################################
 
 if [ -f logs.txt ]
 then

@@ -4,7 +4,7 @@
    and add it to spiders folder
 
 2) Also main.sh and notify_user.sh are executable files. So changed
-   permission accordingly.
+   permission accordingly.(764 for both)
 
 3) notify_user.sh would require changes depending on how the user
    wants to notify himself/herself.
