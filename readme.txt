@@ -7,4 +7,6 @@
    a) Change its permission to 764
    b) Modify the starting line of code to change your current directory to
       the one where it resides.
-   c) Modify notify_user function as per your need.   
+   c) Modify notify_user function as per your need. Also use full path for
+      the commands used to notify users. Full path can be found by using
+      whereis <your-command-to-notify>
