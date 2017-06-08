@@ -15,7 +15,8 @@ function notify_user {
   episode_no=`echo $info | sed 's/.*:\(.*\)/\1/'`
 
   message="${episode_no} : ${episode_name} is now available online!"
-  notify-send Notifier-Alert "$message"
+  # Use full path for notify-send(since its needed for cron)
+  /usr/bin/notify-send Notifier-Alert "$message"
 }
 
 function check_connection {
