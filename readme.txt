@@ -12,4 +12,4 @@
       whereis <your-command-to-notify>
 
 3) crontab command
-   0,15,30,45 <path-to-script>
+   0,15,30,45 * * * *  <path-to-script>
