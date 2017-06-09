@@ -47,7 +47,7 @@ function check_connection {
 
 function match {
   key=$1
-  grep $key old_info.txt 1> /dev/null 2> /dev/null
+  grep $key ../old_info.txt 1> /dev/null 2> /dev/null
   if [ $? -eq 0 ]
   then
     echo "0" # found
@@ -62,35 +62,23 @@ function update_new_info {
   # episode_no=`echo $info | sed 's/.*:\(.*\)/\1/'`
 
   #updating new info in old_info.txt
-  grep $episode_name old_info.txt 1> /dev/null 2> /dev/null
+  grep $episode_name ../old_info.txt 1> /dev/null 2> /dev/null
   if [ $? -eq 0 ]
   then
     #Old data exists!
-    sed -i "s/$episode_name.*/$info/" old_info.txt
+    sed -i "s/$episode_name.*/$info/" ../old_info.txt
   else
     #Old data does not exist!
-    echo "$info" >> old_info.txt
+    echo "$info" >> ../old_info.txt
   fi
-
-  #removing redundant info from new_info.txt
-  sed -i "/$episode_name.*/d" new_info.txt
+  #
+  # #removing redundant info from new_info.txt
+  # sed -i "/$episode_name.*/d" new_info.txt
 }
-
-function delete_redundant_info {
-  info=$1
-  sed -i "/$info/d" new_info.txt
-}
-
-
 
 if [ -f logs.txt ]
 then
   rm logs.txt
-fi
-
-if [ -f new_info.txt ]
-then
-  rm new_info.txt
 fi
 
 if [ ! -f old_info.txt ]
@@ -117,42 +105,35 @@ then
   echo "" >>logs.txt
 
   cd spiders
+
   for spider_name in $FILES
   do
     echo "Executing $spider_name" >> ../logs.txt
-    python $spider_name
-  done
-  cd ..
+    info=`python $spider_name`
 
-  echo "" >>logs.txt
-  echo "Now parsing new info!" >> logs.txt
-  echo "" >>logs.txt
-
-  while read line
-  do
-    result=`match $line`
+    result=`match $info`
     if [ $result -eq 0 ]
     then
 
-      echo "Deleting redundant info(shown in next line)!" >> logs.txt
-      echo "$line" >> logs.txt
-      echo "" >>logs.txt
-
-      delete_redundant_info $line
+      echo "Ignoring redundant info(shown in next line)!" >> ../logs.txt
+      echo "$info" >> ../logs.txt
 
     else
 
-      echo "Updating new info(shown in next line)!" >> logs.txt
-      echo "$line" >> logs.txt
-      echo "" >>logs.txt
+      echo "Updating new info(shown in next line)!" >> ../logs.txt
+      echo "$info" >> ../logs.txt
+      echo "" >> ../logs.txt
 
-      update_new_info $line
+      update_new_info $info
 
-      notify_user $line
+      notify_user $info
 
     fi
 
-  done < new_info.txt
+    echo "" >> ../logs.txt
+
+  done
+  cd ..
 
   echo "New information retrieved successfully!" >> logs.txt
   echo "" >>logs.txt
@@ -161,9 +142,4 @@ else
   echo "Internet connection not found!" >> logs.txt
   echo "" >>logs.txt
 
-fi
-
-if [ -f new_info.txt ]
-then
-  rm new_info.txt
 fi

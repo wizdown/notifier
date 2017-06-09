@@ -23,6 +23,8 @@ def extract_titans_data():
 
 
 new_episode_no = extract_titans_data()
-file = open('../new_info.txt','a')
-line='attack_on_titans_s02:' + str(new_episode_no) + '\n'
-file.write(line)
+info = 'attack_on_titans_s02:' + str(new_episode_no)
+print info
+# file = open('../new_info.txt','a')
+# line='attack_on_titans_s02:' + str(new_episode_no) + '\n'
+# file.write(line)

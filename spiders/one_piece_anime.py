@@ -21,6 +21,8 @@ def extract_one_piece_anime_data():
     return episode_no
 
 new_episode_no = extract_one_piece_anime_data()
-file = open('../new_info.txt','a')
-line='one_piece_anime:' + str(new_episode_no) + '\n'
-file.write(line)
+info ='one_piece_anime:' + str(new_episode_no)
+print info
+# file = open('../new_info.txt','a')
+# line='one_piece_anime:' + str(new_episode_no) + '\n'
+# file.write(line)

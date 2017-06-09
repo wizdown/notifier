@@ -26,6 +26,8 @@ def extract_fairy_tail_data_from_dailyanimeart():
     return chapter_number
 
 new_episode_no = extract_fairy_tail_data_from_dailyanimeart()
-file = open('../new_info.txt','a')
-line='dailyanimeart_fairy_tail:' + str(new_episode_no) + '\n'
-file.write(line)
+info='dailyanimeart_fairy_tail:' + str(new_episode_no)
+print info
+# file = open('../new_info.txt','a')
+# line='dailyanimeart_fairy_tail:' + str(new_episode_no) + '\n'
+# file.write(line)

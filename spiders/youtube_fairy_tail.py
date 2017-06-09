@@ -26,7 +26,10 @@ def extract_fairy_tail_data_from_youtube():
     return number
 
 new_episode_no = extract_fairy_tail_data_from_youtube()
+info='youtube_fairy_tail:' + str(new_episode_no)
+print info
+
 # print new_episode_no
-file = open('../new_info.txt','a')
-line='youtube_fairy_tail:' + str(new_episode_no) + '\n'
-file.write(line)
+# file = open('../new_info.txt','a')
+# line='youtube_fairy_tail:' + str(new_episode_no) + '\n'
+# file.write(line)

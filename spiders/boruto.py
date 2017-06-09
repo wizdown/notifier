@@ -22,6 +22,8 @@ def extract_boruto_data():
 
 
 new_episode_no = extract_boruto_data()
-file = open('../new_info.txt','a')
-line='boruto:' + str(new_episode_no) + '\n'
-file.write(line)
+info = 'boruto:' + str(new_episode_no)
+print info
+# file = open('../new_info.txt','a')
+# line='boruto:' + str(new_episode_no) + '\n'
+# file.write(line)
