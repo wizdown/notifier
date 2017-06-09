@@ -3,7 +3,6 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/us
 SHELL=/bin/bash
 
 #The line just below enables us to use notify-send from cron
-eval "export $(egrep -z DBUS_SESSION_BUS_ADDRESS /proc/$(pgrep -u $LOGNAME gnome-session)/environ)";
 
 
 #This file's permission has been changed to make it executable
@@ -18,6 +17,7 @@ function notify_user {
   info=$1
   episode_name=`echo $info | sed 's/\(.*\):.*/\1/'`
   episode_no=`echo $info | sed 's/.*:\(.*\)/\1/'`
+  eval "export $(egrep -z DBUS_SESSION_BUS_ADDRESS /proc/$(pgrep -u $LOGNAME gnome-session)/environ)";
 
   message="${episode_no} : ${episode_name} is now available online!"
   # Use full path for notify-send(since its needed for cron)

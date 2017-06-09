@@ -10,3 +10,6 @@
    c) Modify notify_user function as per your need. Also use full path for
       the commands used to notify users. Full path can be found by using
       whereis <your-command-to-notify>
+
+3) crontab command
+   0,15,30,45 <path-to-script>
