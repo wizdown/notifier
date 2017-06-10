@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 
 def extract_data(url):
     response = requests.get(url)
+    # print response.text
     html = response.content
     soup = BeautifulSoup(html,"lxml")
     list = soup.find_all('div', attrs={'class': 'item'})
@@ -12,6 +13,8 @@ def extract_data(url):
 
 def extract_titans_data():
     titan_data = extract_data('https://9anime.to/search?keyword=attack+on+titan')
+    if( len(titan_data) == 0):
+        return 0
     for data in titan_data:
         data = data.text[4:]
         if 'Attack on Titan Season 2' in data and 'Attack on Titan Season 2 (Dub)' not in data:

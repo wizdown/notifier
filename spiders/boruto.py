@@ -11,6 +11,8 @@ def extract_data(url):
 
 def extract_boruto_data():
     boruto_data = extract_data('https://9anime.to/search?keyword=boruto')
+    if( len(boruto_data) == 0):
+        return 0
     for data in boruto_data:
         data = data.text[4:]
         if 'Boruto: Naruto Next Generations' in data:
