@@ -10,6 +10,8 @@ def extract_data(url):
 
 def extract_fairy_tail_data_from_dailyanimeart():
     fairy_tail_data = extract_data('https://dailyanimeart.com/category/daily-anime-manga/')
+    if ( len(fairy_tail_data) == 0 ) :
+        return 0
     for entry in fairy_tail_data:
         title = entry.text
         if "Fairy Tail" in title:

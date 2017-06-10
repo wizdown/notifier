@@ -11,6 +11,10 @@ def extract_data(url):
 
 def extract_fairy_tail_data_from_youtube():
     fairy_tail_data = extract_data('https://www.youtube.com/user/Zac2Uchiha/videos')
+
+    if( len(fairy_tail_data) == 0):
+        return 0
+
     for entry in fairy_tail_data:
         full_title = entry.text
         if "FAIRY TAIL" in full_title:

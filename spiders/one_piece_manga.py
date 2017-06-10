@@ -11,6 +11,8 @@ def extract_data(url):
 # Extracting one piece data
 def extract_one_piece_manga_data():
     one_piece_manga_data = extract_data('http://www.gomymanga.com/manga/One_Piece')
+    if( len(one_piece_manga_data) == 0):
+        return 0
     i = 0;
     data = one_piece_manga_data[1].text
     data = data[1:]
