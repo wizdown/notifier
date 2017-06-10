@@ -114,15 +114,11 @@ then
     result=`match $info`
     if [ $result -eq 0 ]
     then
-
-      echo "Ignoring redundant info(shown in next line)!" >> ../logs.txt
-      echo "$info" >> ../logs.txt
-
+      LOG="IGNORING : "
+      LOG=${LOG}${info}
     else
-
-      echo "Updating new info(shown in next line)!" >> ../logs.txt
-      echo "$info" >> ../logs.txt
-      echo "" >> ../logs.txt
+      LOG="UPDATING : "
+      LOG=${LOG}${info}
 
       update_new_info $info
 
@@ -130,6 +126,7 @@ then
 
     fi
 
+    echo "$LOG" >> ../logs.txt
     echo "" >> ../logs.txt
 
   done
