@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 
 def extract_data(url):
     response = requests.get(url)
+    if response.status_code == 0:
+        return -1
     # print response.text
     html = response.content
     soup = BeautifulSoup(html,"lxml")
@@ -12,6 +14,8 @@ def extract_data(url):
 # Extracting one piece data
 def extract_one_piece_anime_data():
     one_piece_anime_data = extract_data('https://9anime.to/search?keyword=one+piece')
+    if one_piece_anime_data == -1:
+        return 0
     # print 'Data Follows'
     # print len(one_piece_anime_data)
     # print 'data over`'

@@ -4,6 +4,8 @@ from bs4 import BeautifulSoup
 
 def extract_data(url):
     response = requests.get(url)
+    if response.status_code == 0:
+        return -1
     html = response.content
     soup = BeautifulSoup(html,"lxml")
     list = soup.find_all('figure')
@@ -11,6 +13,8 @@ def extract_data(url):
 
 def extract_new_data(url):
     response = requests.get(url)
+    if response.status_code == 0:
+        return -1
     html = response.content
     soup = BeautifulSoup(html,"lxml")
     list = soup.find_all('span', attrs={'class': 'name'})
@@ -20,15 +24,19 @@ def extract_new_data(url):
 def extract_originals_data():
     base_url = 'http://fmovie.io'
     originals_data = extract_data('http://fmovie.io/search.html?keyword=originals')
+    if originals_data == -1:
+        return 0
     if( len(originals_data) < 4):
         return 0
-    
+
     data = originals_data[3]
     data = data.find('a')
     data = data['href']
     new_url = base_url + data
     # print new_url
     new_originals_data = extract_new_data(new_url)
+    if new_originals_data == -1:
+        return 0
     if( len(new_originals_data) == 0):
         return 0
     new_originals_data = new_originals_data[0]

@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 
 def extract_data(url):
     response = requests.get(url)
+    if response.status_code == 0:
+        return -1
     html = response.content
     soup = BeautifulSoup(html,"lxml")
     list = soup.find_all('div', attrs={'class': 'col-xs-9'})
@@ -11,6 +13,8 @@ def extract_data(url):
 # Extracting one piece data
 def extract_one_piece_manga_data():
     one_piece_manga_data = extract_data('http://www.gomymanga.com/manga/One_Piece')
+    if one_piece_manga_data == -1:
+        return 0
     if( len(one_piece_manga_data) == 0):
         return 0
     i = 0;

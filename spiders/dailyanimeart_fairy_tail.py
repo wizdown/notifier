@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 
 def extract_data(url):
     response = requests.get(url)
+    if response.status_code == 0:
+        return -1
     html = response.content
     soup = BeautifulSoup(html,"lxml")
     list = soup.find_all('h1', attrs={'class': 'entry-title'})
@@ -10,6 +12,8 @@ def extract_data(url):
 
 def extract_fairy_tail_data_from_dailyanimeart():
     fairy_tail_data = extract_data('https://dailyanimeart.com/category/daily-anime-manga/')
+    if fairy_tail_data == -1:
+        return 0
     if ( len(fairy_tail_data) == 0 ) :
         return 0
     for entry in fairy_tail_data:

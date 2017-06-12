@@ -4,6 +4,8 @@ from bs4 import BeautifulSoup
 
 def extract_data(url):
     response = requests.get(url)
+    if response.status_code == 0:
+        return -1
     # print response.text
     html = response.content
     soup = BeautifulSoup(html,"lxml")
@@ -13,6 +15,8 @@ def extract_data(url):
 
 def extract_titans_data():
     titan_data = extract_data('https://9anime.to/search?keyword=attack+on+titan')
+    if titan_data == -1:
+        return 0
     if( len(titan_data) == 0):
         return 0
     for data in titan_data:

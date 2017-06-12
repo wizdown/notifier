@@ -4,6 +4,8 @@ from bs4 import BeautifulSoup
 
 def extract_data(url):
     response = requests.get(url)
+    if response.status_code == 0:
+        return -1
     html = response.content
     soup = BeautifulSoup(html,"lxml")
     list = soup.find_all('div', attrs={'class': 'item'})
@@ -11,6 +13,8 @@ def extract_data(url):
 
 def extract_boruto_data():
     boruto_data = extract_data('https://9anime.to/search?keyword=boruto')
+    if boruto_data == -1:
+        return 0
     if( len(boruto_data) == 0):
         return 0
     for data in boruto_data:

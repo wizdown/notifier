@@ -4,6 +4,8 @@ from bs4 import BeautifulSoup
 
 def extract_data(url):
     response = requests.get(url)
+    if response.status_code == 0:
+        return -1
     html = response.content
     soup = BeautifulSoup(html,"lxml")
     list = soup.find_all('figure')
@@ -11,6 +13,8 @@ def extract_data(url):
 
 def extract_new_data(url):
     response = requests.get(url)
+    if response.status_code == 0:
+        return -1
     html = response.content
     soup = BeautifulSoup(html,"lxml")
     list = soup.find_all('span', attrs={'class': 'name'})
@@ -20,6 +24,8 @@ def extract_new_data(url):
 def extract_silicon_valley_data():
     base_url = 'http://fmovie.io'
     silicon_valley_data = extract_data('http://fmovie.io/search.html?keyword=silicon+valley')
+    if silicon_valley_data == -1:
+        return 0
     if( len(silicon_valley_data) == 0):
         return 0
     data =silicon_valley_data[4]
@@ -28,6 +34,8 @@ def extract_silicon_valley_data():
     new_url = base_url + data
     # print new_url
     new_silicon_valley_data = extract_new_data(new_url)
+    if new_silicon_valley_data == -1:
+        return 0
     if( len(new_silicon_valley_data) == 0):
         return 0
     new_silicon_valley_data = new_silicon_valley_data[0]
