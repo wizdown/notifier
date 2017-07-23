@@ -48,7 +48,9 @@ function check_connection {
 function match {
   key=$1
   episode_no=`echo $key | sed 's/.*:\(.*\)/\1/'`
-  if [ $episode_no -eq 0 ]
+  length=${#episode_no}
+
+  if [ $length -eq 0 ] || [ $episode_no -eq 0 ]
   then
     # This checks if there is no internet connection
     echo "0" #Ignoring this entry
